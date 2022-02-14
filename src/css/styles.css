@@ -140,7 +140,6 @@
 
 .list{
   flex: 1;
-  /* border: 1px solid green; */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -149,12 +148,12 @@
 }
 
 .list::-webkit-scrollbar {
-  width: 12px;               /* width of the entire scrollbar */
+  width: 12px;               
 }
 
 .list::-webkit-scrollbar-thumb {
-  background-color: #236FE2;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */  /* creates padding around scroll thumb */
+  background-color: #236FE2;    
+  border-radius: 20px;   
 }
 .home-screen{
   display: flex;

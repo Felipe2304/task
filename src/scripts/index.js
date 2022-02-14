@@ -88,61 +88,59 @@ const invertScreens = (quantitiItem , conclued)=>{
     $taskQuantitiesText.textContent = `${conclued} / ${quantitiItem}`
   }
   if(quantitiItem === 0 ) {
-
+    
     $homeScreen.classList.remove('hide')
     $infoBar.removeChild($boxConclued)
     $infoBar.removeChild($progressBar)
   }
-
+  
 }
 
-const userProgress = (quantitiItem , quantitiItemCoclued)=>{
-
-  const calcProgress = Math.round((100 / quantitiItem) * quantitiItemCoclued) 
-
-  setTimeout(()=>{
-    $progress.style.width = `${calcProgress}%`
-  }, 300)
+const userProgress = (quantitiItem , quantitiItemCoclued )=>{
   
+  const calcProgress = Math.round((100 / quantitiItem) * quantitiItemCoclued) 
+  $progress.style.width = `${calcProgress}%`
 }
 
 const createTaskItem = (searchBarValue)=>{
   
+  const $taskItem = createTagElement('div','task-item') 
+  const $iconDelet = createTagElement('img','delet-icon')
+  $iconDelet.setAttribute('src',"../img/delete_icon.svg")
+  const taskText = createTagElement('p','task-text',`${searchBarValue}`)
+  const $concluedIcon = createTagElement('img','conclued-icon')
+  $concluedIcon.setAttribute('src','../img/completed_icon.svg')
+  
   if(searchBarValue.length > 0){
-
-    const $taskItem = createTagElement('div','task-item') 
-    const $iconDelet = createTagElement('img','delet-icon')
-    $iconDelet.setAttribute('src',"../img/delete_icon.svg")
-    const taskText = createTagElement('p','task-text',`${searchBarValue}`)
-    const $concluedIcon = createTagElement('img','conclued-icon')
-    $concluedIcon.setAttribute('src','../img/completed_icon.svg')
+    
     $taskItem.appendChild($iconDelet)
     $taskItem.appendChild(taskText)
     $list.appendChild($taskItem)
-
-    concluedTask($taskItem, $concluedIcon)
-    numberOfElement()
-    removetaskItem($iconDelet,$taskItem)
   }
-   
+  
+  concluedTask($taskItem, $concluedIcon)
+  removetaskItem($iconDelet)
+  numberOfElement()
 }
+
 
 const numberOfElement = ()=>{
-
+  
   const quantitiItem = document.querySelectorAll('.task-item').length
   const quantitiItemCoclued = document.querySelectorAll('.conclued-icon').length
-
+  
   userProgress(quantitiItem , quantitiItemCoclued)
   invertScreens(quantitiItem,quantitiItemCoclued)
-
+  
 }
 
-const removetaskItem = ($iconDelet,$taskItem )=>{
-
-  $iconDelet.addEventListener('click', ()=> {
-    $taskItem.remove()
+const removetaskItem = ($iconDelet )=>{
+  
+  $iconDelet.addEventListener('click', (event)=> {
+    event.target.parentNode.remove()
 
   } )
+
 }
 
 const concluedTask = ($taskItem , $concluedIcon )=>{
@@ -150,7 +148,7 @@ const concluedTask = ($taskItem , $concluedIcon )=>{
   let clicked = false
 
   $taskItem.addEventListener('click', ()=> { 
-    
+
     if(!clicked) $taskItem.appendChild($concluedIcon) 
     if(clicked) $taskItem.removeChild($concluedIcon)
     clicked = !clicked
@@ -158,5 +156,4 @@ const concluedTask = ($taskItem , $concluedIcon )=>{
   })
 
 }
-
 
