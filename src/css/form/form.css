@@ -1,0 +1,43 @@
+.form {
+  width: 325px;
+  height: 40px;
+  /* border: 1px solid red; */
+  margin-bottom: 24px;
+}
+
+.search-bar{
+  height: 100%;
+  width: 80%;
+  border: none;
+  border-radius: 34px 10px 10px 34px;
+  padding-left: 10px ;
+  background-color: #2A2C31;
+  color: #9A9B9E;
+  outline: none;
+  transition-duration: 400ms ;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.search-bar:hover{
+  border:1px solid #236FE2;
+}
+
+.search-bar:focus{
+  border:1px solid #236FE2;
+}
+
+
+.button-add{
+  height: 100%;
+  width: 20%;
+  position: relative;
+  right: 10px;
+  text-transform: uppercase;
+  background-color: #236FE2;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight:700;
+  border: none;
+  border-radius: 34px;
+}

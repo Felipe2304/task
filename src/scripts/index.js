@@ -59,12 +59,6 @@ $body.appendChild($container);
 
 $registerTasksButton.addEventListener('click', ()=> $searchBar.focus() )
 
-const sendTask = (event)=>{
-
-  event.preventDefault()
-  createTaskItem($searchBar.value)
-  $form.reset()
-}
 
 const $boxConclued = createTagElement('div' , 'box-conclued') 
 const $concluedText = createTagElement('span','conclued-text','Concluídas')
@@ -75,6 +69,13 @@ const $progress = createTagElement('div','progress')
 $boxConclued.appendChild($concluedText)
 $boxConclued.appendChild($taskQuantitiesText)
 $progressBar.appendChild($progress)
+
+const sendTask = (event)=>{
+
+  event.preventDefault()
+  createTaskItem($searchBar.value)
+  $form.reset()
+}
 
 $buttonAdd.addEventListener('click', sendTask)
 
@@ -119,26 +120,24 @@ const createTaskItem = (searchBarValue)=>{
   }
   
   concluedTask($taskItem, $concluedIcon)
-  removetaskItem($iconDelet)
+  removetaskItem($iconDelet,$taskItem)
   numberOfElement()
-}
+} 
 
 
 const numberOfElement = ()=>{
-  
   const quantitiItem = document.querySelectorAll('.task-item').length
   const quantitiItemCoclued = document.querySelectorAll('.conclued-icon').length
-  
+
   userProgress(quantitiItem , quantitiItemCoclued)
   invertScreens(quantitiItem,quantitiItemCoclued)
   
 }
 
-const removetaskItem = ($iconDelet )=>{
+const removetaskItem = ($iconDelet,$taskItem )=>{
   
-  $iconDelet.addEventListener('click', (event)=> {
-    event.target.parentNode.remove()
-
+  $iconDelet.addEventListener('click', ()=> {
+    $taskItem.remove()
   } )
 
 }
@@ -156,4 +155,5 @@ const concluedTask = ($taskItem , $concluedIcon )=>{
   })
 
 }
+
 
