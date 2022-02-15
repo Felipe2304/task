@@ -20,7 +20,7 @@
 .task-item{
   display: flex;
   align-items: center;
-  min-width: 326px;
+  width: 326px;
   min-height: 50px;
   border-radius: 8px;
   background-color: #2A2C31;

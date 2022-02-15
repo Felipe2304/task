@@ -63,6 +63,8 @@ $registerTasksButton.addEventListener('click', ()=> $searchBar.focus() )
 const $boxConclued = createTagElement('div' , 'box-conclued') 
 const $concluedText = createTagElement('span','conclued-text','Concluídas')
 const $taskQuantitiesText = createTagElement('span','task-quantiti-text')
+const teste1 = createTagElement('span' , 'teste1')
+const teste2 = createTagElement('span' , 'teste2')
 const $progressBar = createTagElement('div','progress-bar')
 const $progress = createTagElement('div','progress')
 
@@ -71,7 +73,7 @@ $boxConclued.appendChild($taskQuantitiesText)
 $progressBar.appendChild($progress)
 
 const sendTask = (event)=>{
-
+  
   event.preventDefault()
   createTaskItem($searchBar.value)
   $form.reset()
@@ -79,27 +81,10 @@ const sendTask = (event)=>{
 
 $buttonAdd.addEventListener('click', sendTask)
 
-const invertScreens = (quantitiItem , conclued)=>{
-
-  if(quantitiItem > 0) {
-
-    $homeScreen.classList.add('hide')
-    $infoBar.appendChild($boxConclued)
-    $infoBar.appendChild($progressBar)
-    $taskQuantitiesText.textContent = `${conclued} / ${quantitiItem}`
-  }
-  if(quantitiItem === 0 ) {
-    
-    $homeScreen.classList.remove('hide')
-    $infoBar.removeChild($boxConclued)
-    $infoBar.removeChild($progressBar)
-  }
+const userProgress = (quantitiItem, quantitiConclued)=>{
+  console.log(quantitiItem,quantitiConclued)
   
-}
-
-const userProgress = (quantitiItem , quantitiItemCoclued )=>{
-  
-  const calcProgress = Math.round((100 / quantitiItem) * quantitiItemCoclued) 
+  const calcProgress = Math.round((100 / quantitiItem) * quantitiConclued) 
   $progress.style.width = `${calcProgress}%`
 }
 
@@ -118,42 +103,71 @@ const createTaskItem = (searchBarValue)=>{
     $taskItem.appendChild(taskText)
     $list.appendChild($taskItem)
   }
+  const quantitiItem = document.querySelectorAll('.task-item').length
+  const quantitiItemCoclued = document.querySelectorAll('.conclued-icon').length
   
+  userProgress( quantitiItem)
+  invertScreens(quantitiItem,quantitiItemCoclued)
   concluedTask($taskItem, $concluedIcon)
-  removetaskItem($iconDelet,$taskItem)
-  numberOfElement()
+  removetaskItem($iconDelet,$taskItem,quantitiItemCoclued)
+  
 } 
 
 
-const numberOfElement = ()=>{
-  const quantitiItem = document.querySelectorAll('.task-item').length
-  const quantitiItemCoclued = document.querySelectorAll('.conclued-icon').length
-
-  userProgress(quantitiItem , quantitiItemCoclued)
-  invertScreens(quantitiItem,quantitiItemCoclued)
+const removetaskItem = ($iconDelet,$taskItem , quantitiItemCoclued )=>{
+  
+  $iconDelet.addEventListener('click', ()=> {
+    
+    const quantitiItens = document.querySelectorAll('.task-item').length-1
+    $taskItem.remove()
+    removeListTasks(quantitiItens)
+    invertScreens(quantitiItens,quantitiItemCoclued)
+    
+  } )
   
 }
 
-const removetaskItem = ($iconDelet,$taskItem )=>{
-  
-  $iconDelet.addEventListener('click', ()=> {
-    $taskItem.remove()
-  } )
+const invertScreens = (quantitiItem , conclued)=>{
 
+  if(quantitiItem > 0) {
+
+    $homeScreen.classList.add('hide')
+    $infoBar.appendChild($boxConclued)
+    $infoBar.appendChild($progressBar)
+    $taskQuantitiesText.textContent = `${conclued} / ${quantitiItem}` 
+  }
+  
+}
+
+const removeListTasks = (quantitiItem)=>{
+  
+  if(quantitiItem === 0 ){
+    
+    $homeScreen.classList.remove('hide')
+    $infoBar.removeChild($boxConclued)
+    $infoBar.removeChild($progressBar)
+    
+  }
 }
 
 const concluedTask = ($taskItem , $concluedIcon )=>{
-
+  
   let clicked = false
-
+  
   $taskItem.addEventListener('click', ()=> { 
-
+    
     if(!clicked) $taskItem.appendChild($concluedIcon) 
     if(clicked) $taskItem.removeChild($concluedIcon)
     clicked = !clicked
-
+    
+    const quantitiConclued = document.querySelectorAll('.conclued-icon').length 
+    const quantitiItem = document.querySelectorAll('.task-item').length 
+    
+    $taskQuantitiesText.textContent = `${quantitiConclued} / ${quantitiItem}` 
+    userProgress( quantitiItem , quantitiConclued)
+    
   })
-
+  
 }
 
 
