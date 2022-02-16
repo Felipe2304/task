@@ -35,7 +35,6 @@ $container.appendChild($form);
 const $taskContainer = createTagElement("section", "task-container"); 
 
 const $infoBar = createTagElement("div", "info-bar")
-
 const $subTitle = createTagElement('span','sub-title','todas tarefas') 
 const $list = createTagElement("div", "list"); 
 
@@ -59,12 +58,9 @@ $body.appendChild($container);
 
 $registerTasksButton.addEventListener('click', ()=> $searchBar.focus() )
 
-
 const $boxConclued = createTagElement('div' , 'box-conclued') 
 const $concluedText = createTagElement('span','conclued-text','Concluídas')
 const $taskQuantitiesText = createTagElement('span','task-quantiti-text')
-const teste1 = createTagElement('span' , 'teste1')
-const teste2 = createTagElement('span' , 'teste2')
 const $progressBar = createTagElement('div','progress-bar')
 const $progress = createTagElement('div','progress')
 
@@ -82,10 +78,21 @@ const sendTask = (event)=>{
 $buttonAdd.addEventListener('click', sendTask)
 
 const userProgress = (quantitiItem, quantitiConclued)=>{
-  console.log(quantitiItem,quantitiConclued)
   
   const calcProgress = Math.round((100 / quantitiItem) * quantitiConclued) 
   $progress.style.width = `${calcProgress}%`
+}
+
+const invertScreens = (quantitiItem , conclued)=>{
+
+  if(quantitiItem > 0) {
+
+    $homeScreen.classList.add('hide')
+    $infoBar.appendChild($boxConclued)
+    $infoBar.appendChild($progressBar)
+    $taskQuantitiesText.textContent = `${conclued} / ${quantitiItem}` 
+  }
+  
 }
 
 const createTaskItem = (searchBarValue)=>{
@@ -104,12 +111,12 @@ const createTaskItem = (searchBarValue)=>{
     $list.appendChild($taskItem)
   }
   const quantitiItem = document.querySelectorAll('.task-item').length
-  const quantitiItemCoclued = document.querySelectorAll('.conclued-icon').length
+  const quantitiItemConclued = document.querySelectorAll('.conclued-icon').length
   
-  userProgress( quantitiItem)
-  invertScreens(quantitiItem,quantitiItemCoclued)
+  userProgress(quantitiItem , quantitiItemConclued)
+  invertScreens(quantitiItem,quantitiItemConclued)
   concluedTask($taskItem, $concluedIcon)
-  removetaskItem($iconDelet,$taskItem,quantitiItemCoclued)
+  removetaskItem($iconDelet,$taskItem,quantitiItemConclued)
   
 } 
 
@@ -124,18 +131,6 @@ const removetaskItem = ($iconDelet,$taskItem , quantitiItemCoclued )=>{
     invertScreens(quantitiItens,quantitiItemCoclued)
     
   } )
-  
-}
-
-const invertScreens = (quantitiItem , conclued)=>{
-
-  if(quantitiItem > 0) {
-
-    $homeScreen.classList.add('hide')
-    $infoBar.appendChild($boxConclued)
-    $infoBar.appendChild($progressBar)
-    $taskQuantitiesText.textContent = `${conclued} / ${quantitiItem}` 
-  }
   
 }
 

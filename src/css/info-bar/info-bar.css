@@ -43,6 +43,7 @@
   height: 8px;  
   background-color: #236FE2;
   border-radius: 49px;
+  transition-duration: 300ms;
 }
 
 .sub-title{
